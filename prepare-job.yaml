@@ -1,0 +1,39 @@
+
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: video-queue-2020-01-15.1000-1015
+  namespace: inference
+spec:
+  template:
+    spec:
+      containers:
+      - name: video-prepare
+        image: wildflowerschools/wf-deep-docker:video-queue-feeder-v1
+        args:
+          - "--environment_name"
+          - "capucine"
+          - "--start"
+          - "2020-01-15T15:00"
+          - "--end"
+          - "2020-01-15T15:15"
+          - "--queue"
+          - "video-processing-queue"
+          - "--rabbitmq"
+          - "rabbitmq-video-queue.inference.svc.cluster.local"
+        envFrom:
+        - secretRef:
+            name: gpu-client-secrets
+        env:
+        - name: RABBIT_HOST
+          value: rabbitmq-video-queue.inference.svc.cluster.local
+        - name: VIDEO_QUEUE_NAME
+          value: video-processing-queue
+        - name: POSE_QUEUE_NAME
+          value: pose-processing-queue
+        - name: LOG_LEVEL
+          value: INFO
+      restartPolicy: OnFailure
+  backoffLimit: 4
+
