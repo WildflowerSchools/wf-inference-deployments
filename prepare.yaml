@@ -22,7 +22,7 @@ spec:
       restartPolicy: Always
       containers:
         - name: video-prepare
-          image: wildflowerschools/wf-deep-docker:video-prepare-v1
+          image: wildflowerschools/wf-deep-docker:video-prepare-v5
           volumeMounts:
           - name: data
             mountPath: /data
