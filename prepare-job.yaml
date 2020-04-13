@@ -3,21 +3,21 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: video-queue-2020-02-03.1004.00-1005.00
+  name: video-queue-2020-03-09.1720.00-1730.00
   namespace: inference
 spec:
   template:
     spec:
       containers:
       - name: video-prepare
-        image: wildflowerschools/wf-deep-docker:video-queue-feeder-v2
+        image: wildflowerschools/wf-deep-docker:video-queue-feeder-v9
         args:
           - "--environment_name"
           - "capucine"
           - "--start"
-          - "2020-02-03T15:04:00"
+          - "2020-03-09T17:20:00"
           - "--end"
-          - "2020-02-03T15:05:00"
+          - "2020-03-09T17:30:00"
           - "--queue"
           - "video-processing-queue"
           - "--rabbitmq"
